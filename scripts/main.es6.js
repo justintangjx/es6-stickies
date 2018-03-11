@@ -71,11 +71,8 @@ var StickyNote = Object.create(HTMLElement.prototype);
 
 class StickyNote extends HTMLElement {
   createdCallback() {
-    StickyNote.CLASSES.forEach(
-      function(klass) {
-        this.classList.add(klass);
-      }.bind(this)
-    );
+    this.classList.add(...StickyNote.CLASSES);
+
     this.innerHTML = StickyNote.TEMPLATE;
     this.messageElement = this.querySelector(".message");
     this.dateElement = this.querySelector(".date");
