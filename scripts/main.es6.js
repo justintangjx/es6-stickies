@@ -3,7 +3,7 @@ class StickyNotesApp {
   constructor() {}
   saveNote() {
     if (this.noteMessageInput.value) {
-      var key = Date.now().toString();
+      let key = Date.now().toString();
       localStorage.setItem(key, this.noteMessageInput.value);
       this.displayNote(key, this.noteMessageInput.value);
       StickyNotesApp.resetMaterialTextfield(this.noteMessageInput);
@@ -16,7 +16,7 @@ class StickyNotesApp {
     element.blur();
   }
   displayNote(key, message) {
-    var note = document.getElementById(key);
+    let note = document.getElementById(key);
     // If no element with the given key exists we create a new note.
     if (!note) {
       note = document.createElement("sticky-note");
@@ -54,7 +54,7 @@ this.addNoteButton.addEventListener("click", () => this.saveNote());
 this.noteMessageInput.addEventListener("keyup", () => this.toggleButton());
 
 // Loads all the notes.
-for (var key in localStorage) {
+for (let key in localStorage) {
   this.displayNote(key, localStorage[key]);
 }
 
@@ -86,14 +86,14 @@ class StickyNote extends HTMLElement {
   attributeChangedCallback(attributeName) {
     // We display/update the created date message if the id changes.
     if (attributeName == "id") {
+      let date;
       if (this.id) {
-        var date = new Date(parseInt(this.id));
+        date = new Date(parseInt(this.id));
       } else {
-        var date = new Date();
+        date = new Date();
       }
-      var month = StickyNote.MONTHS[date.getMonth()];
-      this.dateElement.textContent =
-        "Created on " + month + " " + date.getDate();
+      let month = StickyNote.MONTHS[date.getMonth()];
+      this.dateElement.textContent = `Created on ${month} ${date.getDate()}`;
     }
   }
 
@@ -112,12 +112,12 @@ class StickyNote extends HTMLElement {
 }
 
 // Initial content of the element.
-StickyNote.TEMPLATE =
-  '<div class="message"></div>' +
-  '<div class="date"></div>' +
-  '<button class="delete mdl-button mdl-js-button mdl-js-ripple-effect">' +
-  "Delete" +
-  "</button>";
+StickyNote.TEMPLATE = `
+  <div class="message"></div>
+  <div class="date"></div>
+  <button class="delete mdl-button mdl-js-button mdl-js-ripple-effect">
+  Delete 
+  </button>`;
 
 // StickyNote elements top level style classes.
 StickyNote.CLASSES = [
