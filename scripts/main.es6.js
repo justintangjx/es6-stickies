@@ -86,14 +86,12 @@ class StickyNote extends HTMLElement {
   attributeChangedCallback(attributeName) {
     // We display/update the created date message if the id changes.
     if (attributeName == "id") {
-      let date;
-      if (this.id) {
-        date = new Date(parseInt(this.id));
-      } else {
-        date = new Date();
-      }
-      let month = StickyNote.MONTHS[date.getMonth()];
-      this.dateElement.textContent = `Created on ${month} ${date.getDate()}`;
+      let dateFormatterOptions = { day: "numeric", month: "short" };
+      let shortDate = new Intl.DateTimeFormat(
+        "en-US",
+        dateFormatterOptions
+      ).format(date);
+      this.dateElement.textContent = `Created on ${shortDate}`;
     }
   }
 
@@ -129,22 +127,6 @@ StickyNote.CLASSES = [
   "mdl-card",
   "mdl-cell",
   "sticky-note"
-];
-
-// List of shortened month names.
-StickyNote.MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "June",
-  "Jul",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec"
 ];
 
 // Fires when an attribute of the element is added/deleted/modified.
